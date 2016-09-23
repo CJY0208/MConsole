@@ -5,7 +5,7 @@
  */
 
 (function(window) {
-	var CanGetLogInfo;
+	var __CanGetLogInfo;
 	if (Error.captureStackTrace) {
 		Object.defineProperty(window, '__Stack', {
 			get: function() {
@@ -20,9 +20,9 @@
 				return stack[1];
 			}
 		});
-		CanGetLogInfo = false;
+		__CanGetLogInfo = false;
 	} else {
-		CanGetLogInfo = true;
+		__CanGetLogInfo = true;
 	}
 	function MConsole() {
 		var self = this;
@@ -46,8 +46,8 @@
 				window.onerror = function(eMsg, eUrl, eLine) {
 					self.LineNumber = eLine;
 					self.FileName = eUrl.split('/').reverse()[0].split('?')[0];
-					console.error(eMsg);
-				}
+					self.error(eMsg);
+				};
 			};
 			self.build = function() {
 				var $Console = document.createElement('div');
@@ -229,7 +229,7 @@
 			var console = window.console;
 			console._log = console.log;
 			console.log = function() {
-				if (CanGetLogInfo) {
+				if (__CanGetLogInfo) {
 					self.LineNumber = '*';
 					self.FileName = '*';
 				} else {
@@ -241,7 +241,7 @@
 			};
 			console._info = console.info;
 			console.info = function() {
-				if (CanGetLogInfo) {
+				if (__CanGetLogInfo) {
 					self.LineNumber = '*';
 					self.FileName = '*';
 				} else {
@@ -253,7 +253,7 @@
 			};
 			console._warn = console.warn;
 			console.warn = function() {
-				if (CanGetLogInfo) {
+				if (__CanGetLogInfo) {
 					self.LineNumber = '*';
 					self.FileName = '*';
 				} else {
@@ -265,7 +265,7 @@
 			};
 			console._error = console.error;
 			console.error = function() {
-				if (CanGetLogInfo) {
+				if (__CanGetLogInfo) {
 					self.LineNumber = '*';
 					self.FileName = '*';
 				} else {
