@@ -163,8 +163,8 @@
     padding: 0 5px;
     min-height: 16px;
     min-width: 16px;
-    -webkit-border-radius: 10px;
-            border-radius: 10px;
+    -webkit-border-radius: 3px;
+            border-radius: 3px;
     color: #FFF;
     opacity: 0;
     background-color: #8097BD;
