@@ -35,7 +35,7 @@
 			self.LineNumber = null;
 			self.FileName = null;
 			self.PreMsg = null;
-			self.RunHisory = [];
+			self.RunHisory = JSON.parse(window.localStorage.getItem('__MConsole__RunHistory') || '[]');
 			self.RunHisoryIdx = -1;
 			self.initFlag = false;
 			self.init = function() {
@@ -79,7 +79,9 @@
 				var codeHisoryIdx = self.RunHisory.indexOf(code);
 				if (codeHisoryIdx !== -1) self.RunHisory.splice(codeHisoryIdx, 1);
 				self.RunHisory.unshift(code);
+				if (self.RunHisory.length > 100) self.RunHisory.pop();
 				self.RunHisoryIdx = -1;
+				window.localStorage.setItem('__MConsole__RunHistory', JSON.stringify(self.RunHisory));
 				try {console.log(eval.call(window, code));}
 				catch (e) {console.error(e);}
 			};
