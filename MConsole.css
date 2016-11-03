@@ -18,7 +18,8 @@
     font-size: 12px;
     border: solid 2px rgba(0, 0, 0, .7);
     border-right-width: 0px;
-    border-radius: 0px;
+    -webkit-border-radius: 0px;
+            border-radius: 0px;
 }
 
 #MConsole-Log-Container {
@@ -103,11 +104,16 @@
 .MConsole-Log {
 	position: relative;
 	padding: 1px 0;
-	padding-left: 22px;
 	border-bottom: solid 1px #E6E6E6;
 	word-wrap: break-word;
 	max-height: 30%;
 	overflow: hidden;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+    -webkit-box-align: start;
+    -webkit-align-items: flex-start;
+            align-items: flex-start;
 }
 
 .MConsole-Log.MConsole-Error {
@@ -125,41 +131,64 @@
 	background-color: #FFF;
 	overflow-y: scroll;
 	overflow-x: hidden;
-	box-shadow: inset 0 0 10px #666;
-	border-bottom: solid 1px #999;
+	-webkit-box-shadow: inset 0 0 10px #999;
+	        box-shadow: inset 0 0 10px #999;
+	border-bottom: solid 1px #ccc;
 }
 
 .MConsole-Log.active::-webkit-scrollbar { width: 3px; background-color: transparent;}
 .MConsole-Log.active::-webkit-scrollbar-thumb { background-color: #999; }
 
+.MConsole-Log-Content {
+    flex: 1;
+    overflow-x: hidden;
+    line-height: 16px;
+    min-height: 16px;
+}
+
 .MConsole-Log.active.MConsole-Error {
-	box-shadow: inset 0 0 10px #EB3941;
+	-webkit-box-shadow: inset 0 0 10px #EB3941;
+	        box-shadow: inset 0 0 10px #EB3941;
 	border-bottom: solid 1px #F8B0B2;
 }
 
 .MConsole-Log.active.MConsole-Info {
-	box-shadow: inset 0 0 10px #2A53CD;
+	-webkit-box-shadow: inset 0 0 10px #2A53CD;
+	        box-shadow: inset 0 0 10px #2A53CD;
 	border-bottom: solid 1px #C0CBEB;
 }
 
 .MConsole-Log-Count {
-	position: absolute;
-	left: 11px;
-	padding: 0 5px;
-	border-radius: 10px;
-	color: #FFF;
-	text-align: center;
-	background-color: #8097BD;
-	display: none;
-	transform: translateX(-50%) scale(.8);
-	-webkit-transform: translateX(-50%) scale(.8);
+    margin: 0 1px;
+    padding: 0 5px;
+    min-height: 16px;
+    min-width: 16px;
+    -webkit-border-radius: 10px;
+            border-radius: 10px;
+    color: #FFF;
+    opacity: 0;
+    background-color: #8097BD;
+    -webkit-transform: scale(.8);
+            transform: scale(.8);
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+            align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+            justify-content: center;
+}
+.MConsole-Log-Count.show {
+	opacity: 1;
 }
 
 .MConsole-Log.active .MConsole-Line-Info {
-	display: block;
+	opacity: .8;
 }
 .MConsole-Line-Info {
-	display: none;
+	opacity: 0;
 	position: absolute;
 	top: 0px;
 	right: 0px;
@@ -181,41 +210,14 @@
 
 .MConsole-Log-Count.MConsole-Info-Icon {
 	background-color: #2A53CD;
-    line-height: 0;
-    padding: 8px 7px;
-	border-radius: 50%;
 }
 
 .MConsole-Log-Count.MConsole-Warn-Icon {
-	background-color: transparent;
-    line-height: 0;
-    padding: 8px 7px;
-	border-radius: 50%;
-}
-
-.MConsole-Log-Count.MConsole-Warn-Icon::after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: -3px;
-    left: -1px;
-    width: 0;
-    height: 0;
-    border: 0;
-    border-bottom: solid 19px #E3B000;
-    border-right: solid 9px transparent;
-    border-left: solid 9px transparent;
-    z-index: -1;
+    background-color: #E3B000;
 }
 
 .MConsole-Log-Count.MConsole-Error-Icon {
 	background-color: #EB3941;
-	width: 16px;
-	height: 16px;
-	line-height: 16px;
-	vertical-align: top;
-	text-align: center;
-	border-radius: 50%;
 }
 
 *[class^='MConsole-Type-'] {
@@ -278,4 +280,9 @@
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
     margin: auto;
+}
+
+.MConsole-Run-Right button {
+	border: 0;
+	outline: 0;
 }

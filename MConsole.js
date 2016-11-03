@@ -128,24 +128,8 @@
 					$PreMsgCount.classList.remove('MConsole-Info-Icon');
 					var count = parseInt($PreMsgCount.innerHTML, 10) || 1;
 					count++;
-					if (count < 100 && count >= 10) {
-						self.PreMsg.style.paddingLeft = '26px';
-						$PreMsgCount.style.left = '13px';
-					} else if (count < 1000 && count >= 100) {
-						self.PreMsg.style.paddingLeft = '30px';
-						$PreMsgCount.style.left = '15px';
-					} else if (count < 10000 && count >= 1000) {
-						self.PreMsg.style.paddingLeft = '34px';
-						$PreMsgCount.style.left = '17px';
-					} else if (count < 100000 && count >= 10000) {
-						self.PreMsg.style.paddingLeft = '38px';
-						$PreMsgCount.style.left = '19px';
-					} else if (count < 1000000 && count >= 100000) {
-						self.PreMsg.style.paddingLeft = '42px';
-						$PreMsgCount.style.left = '21px';
-					}
 					$PreMsgCount.innerHTML = count;
-					$PreMsgCount.style.display = 'block';
+					$PreMsgCount.classList.add('show');
 				} else {
 					$Msg.querySelector('.MConsole-Log-Content').innerHTML = content;
 					self.PreMsg = $Msg;
@@ -166,7 +150,7 @@
 				return $Msg;
 			};
 			self.info = __extendLog('Info', 'i');
-			self.warn = __extendLog('Warn', 'i');
+			self.warn = __extendLog('Warn', '!');
 			self.error = __extendLog('Error', 'x');
 		})();
 
@@ -178,7 +162,7 @@
 				$Msg.classList.add('MConsole-' + logName);
 				$MsgCount.innerHTML = ' ' + logIcon + ' ';
 				$MsgCount.classList.add('MConsole-' + logName + '-Icon');
-				$MsgCount.style.display = 'block';
+				$MsgCount.classList.add('show');
 			}
 		}
 		function __initEvent($Console, $Button) {
@@ -282,3 +266,20 @@
 	}
 	window.MConsole = new MConsole();
 })(window);
+
+window.DevEnvironment = window.location.host == 'mall.akulaku.com' ? false : true;
+
+if (window.localStorage._NEED_CONSOLE) {
+	window.CC = function() {
+		window.localStorage.removeItem('_NEED_CONSOLE');
+	}
+	window.DevEnvironment = true;
+}
+
+document.addEventListener('readystatechange', function() {
+	if(document.readyState === 'interactive') {
+       	if (window.DevEnvironment) {
+       		MConsole.init();
+       	}
+    }
+})
