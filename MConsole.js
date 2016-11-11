@@ -1,10 +1,11 @@
 /**
  * MConsole.js
  * @Author ---- CJY
- * @Date ------ 2016/09/03
+ * @Date ------ 2016.11.11
  */
 
-(function(window) {
+(function() {
+	var root = this;
 	var __CanGetLogInfo;
 	if (Error.captureStackTrace) {
 		Object.defineProperty(window, '__Stack', {
@@ -264,22 +265,10 @@
 		}
 		function __typeof(val) { return {}.toString.call(val).replace('[object ', '').replace(']', '');}
 	}
-	window.MConsole = new MConsole();
-})(window);
-
-window.DevEnvironment = window.location.host == 'mall.akulaku.com' ? false : true;
-
-if (window.localStorage._NEED_CONSOLE) {
-	window.CC = function() {
-		window.localStorage.removeItem('_NEED_CONSOLE');
-	}
-	window.DevEnvironment = true;
-}
-
-document.addEventListener('readystatechange', function() {
-	if(document.readyState === 'interactive') {
-       	if (window.DevEnvironment) {
-       		MConsole.init();
-       	}
-    }
-})
+	if (typeof exports !== 'undefined') {
+        if (typeof module !== 'undefined' && module.exports) exports = module.exports = new MConsole();
+        exports.MConsole = new MConsole();
+    } else if (typeof define !== 'undefined') {
+    	define(new MConsole());
+    } else root.MConsole = new MConsole();
+}.call(this));
