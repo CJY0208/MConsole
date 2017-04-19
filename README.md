@@ -1,5 +1,5 @@
 # MConsole
-A plugin for check console's output in Mobile web page.
+A plugin for checking console's output in Mobile web page.
 
 方便你在移动端查看console的输出
 
